@@ -1,7 +1,3 @@
-/*
-    ===== Código de TypeScript =====
-*/
-
 function sumar(a: number, b: number): number {
     return a + b;
 }

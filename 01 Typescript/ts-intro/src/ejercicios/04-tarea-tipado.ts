@@ -1,7 +1,3 @@
-/*
-    ===== Código de TypeScript =====
-*/
-
 interface Direccion {
     calle: string;
     pais: string;

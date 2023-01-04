@@ -1,7 +1,3 @@
-/*
-    ===== Código de TypeScript =====
-*/
-
 let habilidades: string[] = ["Bash", "Counter", "Healing"];
 
 interface Personaje {
