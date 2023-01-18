@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-no-comunes',
@@ -38,4 +39,35 @@ export class NoComunesComponent {
 
     this.clientes.pop();
   }
+
+  // KeyValue
+  persona = {
+    nombre: "Hector",
+    edad: 24,
+    direccion: "Navolato, Sinaloa"
+  }
+
+  // Json
+  heroes = [
+    {
+      nombre: "Superman",
+      vuela: true
+    },
+    {
+      nombre: "Robin",
+      vuela: false
+    },
+    {
+      nombre: "Aquaman",
+      vuela: false
+    }
+  ]
+
+  // Async
+  miObservable = interval(5000);
+  valorPromesa = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Tenemos data de promesa");
+    }, 3500);
+  });
 }

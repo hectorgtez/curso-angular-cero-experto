@@ -52,4 +52,29 @@
       <pre>{{nombre | slice:0:4}}</pre>
     </p-fieldset>
   </div>
+
+  <div class="md:col-6 sm:col-9">
+    <p-fieldset legend="Json Pipe" [toggleable]="true">
+      <pre>{{heroes | json}}</pre>
+    </p-fieldset>
+  </div>
+
+  <div class="md:col-6 sm:col-9">
+    <p-fieldset legend="KeyValue Pipe" [toggleable]="true">
+      <ul>
+        <li *ngFor="let item of persona | keyvalue">
+          <b>{{item.key | titlecase}}:</b> {{item.value}}
+        </li>
+      </ul>
+    </p-fieldset>
+  </div>
+
+  <div class="md:col-6 sm:col-9">
+    <p-fieldset legend="Async Pipe" [toggleable]="true">
+      <pre *ngIf="!(miObservable | async)">Resolviendo observable...</pre>
+      <pre>{{miObservable | async}}</pre>
+      <pre *ngIf="!(valorPromesa | async)">Resolviendo promesa...</pre>
+      <pre>{{valorPromesa | async}}</pre>
+    </p-fieldset>
+  </div>
 </div>
