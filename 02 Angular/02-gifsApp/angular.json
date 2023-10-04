@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
   "newProjectRoot": "projects",
   "projects": {
-    "gifsApp": {
+    "gifs-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -60,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "gifsApp:build:production"
+              "browserTarget": "gifs-app:build:production"
             },
             "development": {
-              "browserTarget": "gifsApp:build:development"
+              "browserTarget": "gifs-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gifsApp:build"
+            "browserTarget": "gifs-app:build"
           }
         },
         "test": {
