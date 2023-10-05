@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
   "newProjectRoot": "projects",
   "projects": {
     "pipesApp": {
@@ -27,9 +30,9 @@
             "styles": [
               "src/styles.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/vela-purple/theme.css",
+              "node_modules/primeng/resources/themes/lara-dark-indigo/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeflex/primeflex.css"
+              "node_modules/primeflex/primeflex.min.css"
             ],
             "scripts": []
           },

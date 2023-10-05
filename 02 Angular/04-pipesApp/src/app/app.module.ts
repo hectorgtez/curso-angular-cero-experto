@@ -2,18 +2,20 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModule } from './shared/shared.module';
-import { VentasModule } from './ventas/ventas.module';
-
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppRouterModule } from './app-router.module';
 
-// Cambiar el locale de la app
-import { registerLocaleData } from "@angular/common";
-import localeEs from "@angular/common/locales/es-MX";
-import localeFr from "@angular/common/locales/fr";
-registerLocaleData(localeEs);
-registerLocaleData(localeFr);
+import { SharedModule } from './shared/shared.module';
+
+// Configuración del locale de la app
+import localeEsHN from '@angular/common/locales/es-HN';
+import localeFrCA from '@angular/common/locales/fr-CA';
+
+import { registerLocaleData } from '@angular/common';
+
+
+registerLocaleData( localeEsHN );
+registerLocaleData( localeFrCA );
 
 
 @NgModule({
@@ -23,12 +25,12 @@ registerLocaleData(localeFr);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRouterModule,
+    AppRoutingModule,
+
     SharedModule,
-    VentasModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "es-MX" }
+    { provide: LOCALE_ID, useValue: 'es-HN' }
   ],
   bootstrap: [AppComponent]
 })
