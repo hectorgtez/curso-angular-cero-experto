@@ -1,39 +1,53 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
-import { Heroe } from '../interfaces/heroe.interface';
-import { environment } from '../../../environments/environment';
+import { Hero } from '../interfaces/hero.interface';
+import { environments } from '../../../environments/environments';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class HeroesService {
-  private baseUrl: string = environment.baseUrl;
+
+  private baseUrl: string = environments.baseUrl;
+
 
   constructor(private http: HttpClient) { }
 
-  getHeroes(): Observable<Heroe[]> {
-    return this.http.get<Heroe[]>(`${this.baseUrl}/heroes`);
+
+  getHeroes():Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${ this.baseUrl }/heroes`);
   }
 
-  getHeroePorId(id: string): Observable<Heroe> {
-    return this.http.get<Heroe>(`${this.baseUrl}/heroes/${id}`);
+  getHeroById( id: string ): Observable<Hero|undefined> {
+    return this.http.get<Hero>(`${ this.baseUrl }/heroes/${ id }`)
+      .pipe(
+        catchError( error => of(undefined) )
+      );
   }
 
-  getSugerencias(termino: string): Observable<Heroe[]> {
-    return this.http.get<Heroe[]>(`${this.baseUrl}/heroes?q=${termino}&_limit=6`);
+  getSuggestions( query: string ): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${ this.baseUrl }/heroes?q=${ query }&_limit=6`);
   }
 
-  agregarHeroe(heroe: Heroe): Observable<Heroe> {
-    return this.http.post<Heroe>(`${this.baseUrl}/heroes`, heroe);
+
+  addHero( hero: Hero ): Observable<Hero> {
+    return this.http.post<Hero>(`${ this.baseUrl }/heroes`, hero );
   }
 
-  actualizarHeroe(heroe: Heroe): Observable<Heroe> {
-    return this.http.put<Heroe>(`${this.baseUrl}/heroes/${heroe.id}`, heroe);
+  updateHero( hero: Hero ): Observable<Hero> {
+    if ( !hero.id ) throw Error('Hero id is required');
+
+    return this.http.patch<Hero>(`${ this.baseUrl }/heroes/${ hero.id }`, hero );
   }
 
-  borrarHeroe(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/heroes/${id}`);
+  deleteHeroById( id: string ): Observable<boolean> {
+
+    return this.http.delete(`${ this.baseUrl }/heroes/${ id }`)
+      .pipe(
+        map( resp => true ),
+        catchError( err => of(false) ),
+      );
   }
+
+
 }

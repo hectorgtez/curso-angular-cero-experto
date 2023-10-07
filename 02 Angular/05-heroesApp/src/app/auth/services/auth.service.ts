@@ -1,44 +1,54 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, tap, of, map, catchError } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
-import { Auth } from '../interfaces/auth.interface';
+import { environments } from '../../../environments/environments';
+import { User } from '../interfaces/user.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class AuthService {
-  private _baseUrl: string = environment.baseUrl;
-  private _auth: Auth | undefined;
 
-  constructor( private _http: HttpClient ) { }
+  private baseUrl = environments.baseUrl;
+  private user?: User;
 
-  verificarAuth(): Observable<boolean> {
-    if(!localStorage.getItem("token")) {
-      return of(false);
-    }
+  constructor(private http: HttpClient) { }
 
-    return this._http.get<Auth>(`${this._baseUrl}/usuarios/1`)
-      .pipe(
-        map(auth => {
-          this._auth = auth
-          return true
-        })
-      )
+  get currentUser():User|undefined {
+    if ( !this.user ) return undefined;
+    return structuredClone( this.user );
   }
 
-  login() {
-    return this._http.get<Auth>(`${this._baseUrl}/usuarios/1`)
+  login( email: string, password: string ):Observable<User> {
+    // http.post('login',{ email, password });
+    return this.http.get<User>(`${ this.baseUrl }/users/1`)
       .pipe(
-        tap(auth => this._auth = auth),
-        tap(auth => localStorage.setItem('token', auth.id))
+        tap( user => this.user = user ),
+        tap( user => localStorage.setItem('token', 'aASDgjhasda.asdasd.aadsf123k' )),
       );
   }
 
-  get auth(): Auth {
-    return {...this._auth!};
+  checkAuthentication(): Observable<boolean> {
+
+    if ( !localStorage.getItem('token') ) return of(false);
+
+    const token = localStorage.getItem('token');
+
+    return this.http.get<User>(`${ this.baseUrl }/users/1`)
+      .pipe(
+        tap( user => this.user = user ),
+        map( user => !!user ),
+        catchError( err => of(false) )
+      );
+
   }
+
+
+  logout() {
+    this.user = undefined;
+    localStorage.clear();
+  }
+
+
+
 }
