@@ -8,8 +8,20 @@ interface MenuItem {
 @Component({
   selector: 'shared-side-menu',
   templateUrl: './side-menu.component.html',
-  styles: [
-  ]
+  styles: [`
+    .cursor-pointer {
+      cursor: pointer;
+    }
+
+    .hover-primary:hover {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+      color: #ffffff;
+      transition-delay: 0.01s;
+      transition-duration: 0.15s;
+      transition-timing-function: ease-in-out;
+    }
+  `]
 })
 export class SideMenuComponent {
   public reacticeMenu: MenuItem[] = [

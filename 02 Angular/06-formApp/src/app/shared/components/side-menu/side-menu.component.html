@@ -5,7 +5,7 @@
 <ul class="list-group">
   <li
     *ngFor="let item of reacticeMenu"
-    class="list-group-item"
+    class="list-group-item cursor-pointer hover-primary"
     [routerLink]="[ item.route ]"
     routerLinkActive="active"
   >
@@ -17,7 +17,7 @@
 <ul class="list-group">
   <li
     *ngFor="let item of authMenu"
-    class="list-group-item"
+    class="list-group-item cursor-pointer hover-primary"
     [routerLink]="[ item.route ]"
     routerLinkActive="active"
   >
