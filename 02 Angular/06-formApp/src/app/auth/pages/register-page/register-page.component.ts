@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsService } from '../../../shared/services/validators.service';
+import { EmailValidator } from '../../../shared/validators/email-validator.service';
 
 
 @Component({
@@ -14,15 +15,20 @@ export class RegisterPageComponent {
     name: ['', [Validators.required,
       Validators.pattern(this.validatorsService.firstNameAndLastnamePattern)]],
     email: ['', [Validators.required,
-      Validators.pattern(this.validatorsService.emailPattern)]],
+      Validators.pattern(this.validatorsService.emailPattern)], [this.emailValidator]],
     username: ['', [Validators.required, this.validatorsService.cantBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', [Validators.required]],
+  }, {
+    validators: [
+      this.validatorsService.isFieldOneEqualFieldTwo('password', 'confirmPassword')
+    ]
   });
 
   constructor(
     private fb: FormBuilder,
-    private validatorsService: ValidatorsService
+    private validatorsService: ValidatorsService,
+    private emailValidator: EmailValidator,
   ) {}
 
   isValidField( field: string ) {
